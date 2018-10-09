@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: catcheer blog
 subtitle:
-description:
+description: study 
 keywords:
-author: John Doe
+author: catcheer
 language:
 timezone:
 
@@ -73,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: jekyll-theme-tactile
+theme: yilia
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
