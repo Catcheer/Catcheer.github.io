@@ -137,6 +137,145 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-chromeExtend" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/15/chromeExtend/">chromeExtend</a>
+    </h1>
+  
+
+        
+        <a href="/2018/10/15/chromeExtend/" class="archive-article-date">
+  	<time datetime="2018-10-15T06:12:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>从功能上讲：Chrome扩展主要用于对浏览器功能的增强。它可以捕捉特定网页的内容,（比如，移除网页弹窗广告dom，实现屏蔽广告），捕捉HTTP报文，捕捉用户浏览动作，改变浏览器地址栏/起始页/书签/Tab等界面元素的行为，与别的站点通信，更改浏览器代理服务器的设置等等。</p>
+<p>从表现形式上讲：Chrome扩展就是个后台运行的网页而已,所以其开发使用的是web技术，开发插件我们实际上就是写一个Web应用，然后将按照Chrome的规定将一个快捷方式放在Chrome工具栏上。</p>
+<h4 id="为什么是chrome扩展"><a href="#为什么是chrome扩展" class="headerlink" title="为什么是chrome扩展"></a>为什么是chrome扩展</h4><ul>
+<li>Chrome占有率更高，更多人用；</li>
+<li>开发更简单；总体上看没什么新的技术，开发语言就是javascript，Firefox的插件开发则复杂许多，涉及到环境的搭建和一些WEB以外的技术；IE的插件开发就更复杂了，需要熟悉C++和COM技术，当然还要装微软的Visual Studio。</li>
+<li>应用场景更广泛，Firefox插件只能运行在Firefox上，而Chrome除 了Chrome浏览器之外，还可以运行在所有webkit内核的国产浏览器，等；<br>除此之外，Firefox浏览器也对Chrome插件的运行提供了一定的支持；</li>
+</ul>
+<h3 id="Manifest文件格式"><a href="#Manifest文件格式" class="headerlink" title="Manifest文件格式"></a>Manifest文件格式</h3><p>manifest.json 是 Chrome 扩展的入口文件，定义了 扩展的名称（name）、版本（version）、描述（description）、图标位置（icons）和 Manifest 版本（manifest_version）等信息。</p>
+<p>其中，name、version 和 manifest_version 是必须的，而且 manifest_version 必须为 2 。</p>
+<p>下面是是一个manifest.json示例</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">  &#123;</span><br><span class="line">   </span><br><span class="line">   // app属性是chrome应用所必须的      </span><br><span class="line">   // chrome扩展与应用的区别下面会讲到</span><br><span class="line">    &quot;app&quot;: &#123; </span><br><span class="line">        &quot;background&quot;: &#123;</span><br><span class="line">            &quot;scripts&quot;: [&quot;background.js&quot;]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">      // 清单文件的版本，这个必须写，而且必须是2</span><br><span class="line">    &quot;manifest_version&quot;: 2,</span><br><span class="line">    &quot;name&quot;: &quot;My Extension&quot;,</span><br><span class="line">    &quot;version&quot;: &quot;versionString&quot;,</span><br><span class="line">    &quot;default_locale&quot;: &quot;en&quot;, //扩展的语言</span><br><span class="line">    &quot;description&quot;: &quot;A plain text description&quot;,</span><br><span class="line">      // 此处的图标可能会被用于多处，右键菜单，扩展提醒等</span><br><span class="line">      // 可以只设置一种尺寸的图标比如 19x19</span><br><span class="line">    &quot;icons&quot;: &#123; </span><br><span class="line">        &quot;16&quot;: &quot;images/icon16.png&quot;,</span><br><span class="line">        &quot;48&quot;: &quot;images/icon48.png&quot;,</span><br><span class="line">        &quot;128&quot;: &quot;images/icon128.png&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">      // 浏览器右上角图标设置，</span><br><span class="line">    &quot;browser_action&quot;: &#123;</span><br><span class="line">        &quot;default_icon&quot;: &#123;</span><br><span class="line">            &quot;19&quot;: &quot;images/icon19.png&quot;,</span><br><span class="line">            &quot;38&quot;: &quot;images/icon38.png&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;default_title&quot;: &quot;Extension Title&quot;,</span><br><span class="line">        &quot;default_popup&quot;: &quot;popup.html&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">      // 当某些特定页面打开才显示的图标</span><br><span class="line">    &quot;page_action&quot;: &#123;</span><br><span class="line">        &quot;default_icon&quot;: &#123;</span><br><span class="line">            &quot;19&quot;: &quot;images/icon19.png&quot;,</span><br><span class="line">            &quot;38&quot;: &quot;images/icon38.png&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;default_title&quot;: &quot;Extension Title&quot;,</span><br><span class="line">        &quot;default_popup&quot;: &quot;popup.html&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;background&quot;: &#123;</span><br><span class="line">        &quot;scripts&quot;: [&quot;background.js&quot;]</span><br><span class="line">    &#125;,</span><br><span class="line">   // content_scripts属性可以指定将哪些脚本何时注入到哪些页面中，当用户访问这些页面后，相应脚本即可自动运行，从而对页面DOM进行操作。</span><br><span class="line">    &quot;content_scripts&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;matches&quot;: [&quot;http://www.google.com/*&quot;], //    定义了哪些页面会被注入脚本</span><br><span class="line">            &quot;exclude_matches&quot;:[&quot;&quot;],</span><br><span class="line">            &quot;all_frames&quot;:[&quot;&quot;],</span><br><span class="line">            &quot;exclude_globs&quot;:[&quot;&quot;],</span><br><span class="line">            &quot;include_globs&quot;:[&quot;&quot;],</span><br><span class="line">            &quot;css&quot;: [&quot;mystyles.css&quot;],</span><br><span class="line">            </span><br><span class="line">            &quot;js&quot;: [&quot;jquery.js&quot;, &quot;myscript.js&quot;],</span><br><span class="line">          </span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">     // 插件配置页页面</span><br><span class="line">    &quot;options_page&quot;: &quot;options.html&quot;,</span><br><span class="line">         // 覆盖浏览器默认页面</span><br><span class="line">    &quot;chrome_url_overrides&quot;:</span><br><span class="line">    &#123;</span><br><span class="line">        // 覆盖浏览器默认的新标签页</span><br><span class="line">        &quot;newtab&quot;: &quot;newtab.html&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;permissions&quot;: [</span><br><span class="line">        &quot;contextMenus&quot;, // 右键菜单</span><br><span class="line">        &quot;tabs&quot;, // 标签</span><br><span class="line">        &quot;notifications&quot;, // 通知</span><br><span class="line">        &quot;webRequest&quot;, // web请求</span><br><span class="line">        &quot;webRequestBlocking&quot;,</span><br><span class="line">        &quot;storage&quot;, // 插件本地存储</span><br><span class="line">        &quot;http://*/*&quot;, // 可以访问的网站</span><br><span class="line">        &quot;https://*/*&quot; // 可以访问的网站</span><br><span class="line">    ],</span><br><span class="line">     // 向地址栏注册一个关键字以提供搜索建议，只能设置一个关键字</span><br><span class="line">    &quot;omnibox&quot;: &#123; &quot;keyword&quot; : &quot;go&quot; &#125;,</span><br><span class="line">    &quot;web_accessible_resources&quot;: [</span><br><span class="line">        &quot;images/*.png&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="content-scripts"><a href="#content-scripts" class="headerlink" title="content_scripts"></a>content_scripts</h3><p> content_scripts是在网页上下文中运行的文件。通过使用标准文档对象模型( DOM )，他们能够阅读浏览器访问的网页的细节，对其进行更改。</p>
+<p> 关于匹配规则：</p>
+<blockquote>
+<p>其中matches属性定义了哪些页面会被注入脚本，exclude_matches则定义了哪些页面不会被注入脚本，css和js对应要注入的样式表和JavaScript，run_at定义了何时进行注入，all_frames定义脚本是否会注入到嵌入式框架中，include_globs和exclude_globs则是全局URL匹配，最终脚本是否会被注入由matches、exclude_matches、include_globs和exclude_globs的值共同决定。简单的说，如果URL匹配mathces值的同时也匹配include_globs的值，会被注入；如果URL匹配exclude_matches的值或者匹配exclude_globs的值，则不会被注入。</p>
+</blockquote>
+<h3 id="backgroundjs"><a href="#backgroundjs" class="headerlink" title="backgroundjs"></a>backgroundjs</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&quot;name&quot;: &quot;我的扩展程序&quot;,</span><br><span class="line"> ...</span><br><span class="line"> &quot;background&quot;: &#123;</span><br><span class="line">   &quot;scripts&quot;: [&quot;eventPage.js&quot;],</span><br><span class="line">   &quot;persistent&quot;: false</span><br><span class="line"> &#125;,</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+<p>background分两种：常驻后台页面与事件后台页面。如果persistent设置为true(默认就是true)则是常驻后台页。</p>
+<p>长驻后台浏览器打开即运行，并且一直运行直到浏览器关闭。</p>
+<p>事件页面只在需要时加载，当事件页面不活动时就会卸载，以便释放内存和其他系统资源。</p>
+<p>事件页面在“需要”时加载，再次进入空闲状态后卸载。如下是一些可能使事件页面加载的例子：</p>
+<ul>
+<li>应用或扩展程序第一次安装或者更新到新版本（为了注册事件）。</li>
+<li>事件页面监听的某个事件触发。</li>
+<li>内容脚本或其他扩展程序发送消息。</li>
+<li>扩展程序中的其他视图调用了 runtime.getBackgroundPage。</li>
+</ul>
+<h3 id="跨域请求"><a href="#跨域请求" class="headerlink" title="跨域请求"></a>跨域请求</h3><p> 跨域指的是JavaScript通过XMLHttpRequest请求数据时，调用JavaScript的页面所在的域和被请求页面的域不一致。对于网站来说，浏览器出于安全考虑是不允许跨域。</p>
+<p> Google允许Chrome扩展应用不必受限于跨域限制。但出于安全考虑，需要在Manifest的permissions属性中声明需要跨域的权限。</p>
+<p>比如，如果我们想设计一款获取维基百科数据并显示在其他网页中的扩展，就要在Manifest中进行如下声明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    &quot;permissions&quot;: [</span><br><span class="line">        &quot;*://*.wikipedia.org/*&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="带选项页面的扩展"><a href="#带选项页面的扩展" class="headerlink" title="带选项页面的扩展"></a>带选项页面的扩展</h3><p>mainfest 清单如果配置了options_page或options_ui属性，扩展会有一个‘选项’菜单。点击选项会打开配置的的html页面。此功能多用于扩展设置。</p>
+<p>options_page是在新的tab标签页打开配置页面，options_ui是弹出层形式显示配置页面</p>
+<h3 id="扩展页面间的通信"><a href="#扩展页面间的通信" class="headerlink" title="扩展页面间的通信"></a>扩展页面间的通信</h3><p>Chrome提供了4个有关扩展页面间相互通信的接口，分别是runtime.sendMessage、runtime.onMessage、runtime.connect和runtime.onConnect。</p>
+<p>Chrome提供的大部分API是不支持在content_scripts中运行的，但runtime.sendMessage和runtime.onMessage可以在content_scripts中运行，所以扩展的其他页面也可以同content_scripts相互通信。</p>
+<p>runtime.sendMessage完整的方法为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome.runtime.sendMessage(extensionId, message, options, callback)</span><br></pre></td></tr></table></figure></p>
+<p>extensionId用于backgroundjs识别来自哪个扩展的标示，可以传null标示用扩展的默认id(一串没有规律的字符串)</p>
+<p>message是所要发送的消息体，必须是可以JSON序列化的值。</p>
+<p>callback回调方法，backgroundjs成功接收到消息时可以调用此方法。</p>
+<p>runtime.onMessage完整的方法为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome.runtime.onMessage.addListener(callback)</span><br></pre></td></tr></table></figure>
+<p>callback方法有三个参数：message,senderId,callbackFn</p>
+<p>message收到的消息体，</p>
+<p>senderId消息发送方的id，</p>
+<p>callbackFn消息发送方的回调函数</p>
+<h3 id="Browser-Actions"><a href="#Browser-Actions" class="headerlink" title="Browser Actions"></a>Browser Actions</h3><h5 id="defautlt-icon"><a href="#defautlt-icon" class="headerlink" title="defautlt_icon"></a>defautlt_icon</h5><p>Browser Actions设置default_icon属性指定扩展的默认图片。如果不设定将使用chrome默认的图标。也可以通过setIcon方法可以动态更改扩展的图标，setIcon的完整方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome.browserAction.setIcon(details, callback)</span><br></pre></td></tr></table></figure></p>
+<h5 id="popup页面"><a href="#popup页面" class="headerlink" title="popup页面"></a>popup页面</h5><p>popup属性指定点击扩展图标时打开的页面</p>
+<h5 id="default-title"><a href="#default-title" class="headerlink" title="default_title"></a>default_title</h5><p>将鼠标移至扩展图标上，片刻后所显示的文字就是扩展的标题。</p>
+<h5 id="Badg"><a href="#Badg" class="headerlink" title="Badg"></a>Badg</h5><p>badg是扩展图标上面的提示信息，最多支持4个字节。它的优势就是可以一直显示。比如记录邮件、微博、RSS阅读器等的未读条目。Badge目前只能够通过JavaScript设定显示的内容</p>
+<p>下面的代码显示了一个背景颜色为蓝色，内容为“Dog”的badge：</p>
+<p><img src="/assets/blogImg/bdge.jpg" alt="avatar"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chrome.browserAction.setBadgeBackgroundColor(&#123;color: &apos;#0000FF&apos;&#125;);</span><br><span class="line">chrome.browserAction.setBadgeText(&#123;text: &apos;Dog&apos;&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="右键菜单"><a href="#右键菜单" class="headerlink" title="右键菜单"></a>右键菜单</h3><p>在Manifest的permissions域中声明contextMenus可以将扩展添加至右键菜单。右键菜单分为四类，分别为普通菜单，单选，复选，和分割线。其中普通菜单可以有子级菜单</p>
+<p>创建菜单使用create方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">chrome.contextMenus.create(&#123;</span><br><span class="line">    type: &apos;normal&apos;,</span><br><span class="line">    title: &apos;Menu A&apos;,</span><br><span class="line">    id: &apos;a&apos;,</span><br><span class="line">    contexts: [&apos;link&apos;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>其中contexts定义何时显示自定义的菜单项，上例是在超链接上右键时显示自定义的菜单。contexts完整的选项包括all、page、frame、selection、link、editable、image、video、audio和launcher，</p>
+<p>如果在创建菜单时，定义了onclick域，则菜单被点击后就会调用onclick指定的函数。调用的函数会接收到两个参数，分别是点击后的相关信息和当前标签信息。点击后的相关信息包括菜单id、上级菜单id、媒体类型（image、video或audio）、超级链接目标、媒体URL、页面URL、框架URL、选择的文字、是否可编辑（只针对text input和textarea等控件）、用户点击前是否被选中和当前是否被选中（只针对checkbox或radio）</p>
+<p>右键菜单典型例子：</p>
+<div align="center"><br><img src="/assets/blogImg/contextMenus.png" width="300"><br></div>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> &quot;permissions&quot;:[</span><br><span class="line">        &quot;contextMenus&quot;,</span><br><span class="line">        &quot;tabs&quot;</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">chrome.contextMenus.create(&#123;</span><br><span class="line">    type: &apos;normal&apos;,</span><br><span class="line">    title: &apos;使用谷歌搜索：%s&apos;, // %s表示选中的文字</span><br><span class="line">    id: &apos;a&apos;,</span><br><span class="line">    contexts: [&apos;selection&apos;],</span><br><span class="line">    onclick: function(params)</span><br><span class="line">    &#123;</span><br><span class="line">       </span><br><span class="line">        chrome.tabs.create(&#123;url: &apos;https://www.google.com/search?q=&apos; + encodeURI(params.selectionText)+&apos;oq=&apos;+ encodeURI(params.selectionText)&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="桌面提醒"><a href="#桌面提醒" class="headerlink" title="桌面提醒"></a>桌面提醒</h3><p>要使用桌面提醒功能，需要在Manifest中声明notifications权限</p>
+<div><br><img src="/assets/blogImg/desktopNotify.png" width="400"><br><div><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;permissions&quot;: [</span><br><span class="line">    &quot;notifications&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure><br><br>创建桌面提醒<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">chrome.notifications.create(&apos;&apos;, &#123;</span><br><span class="line">        &quot;type&quot;:&quot;basic&quot;,// basic,image,list,progress</span><br><span class="line">        &quot;iconUrl&quot;:&quot;/images/icon48.png&quot;,</span><br><span class="line">        &quot;title&quot;:&quot;Tips&quot;,</span><br><span class="line">        &quot;message&quot;:&quot;休息片刻继续工作，效率会更高&quot;</span><br><span class="line">    &#125;, function()&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure><br><br>###多功能框omnibox<br><br>Chrome和其他浏览器相比一个最大的区别就是地址栏——其实不仅仅是地址栏，而是一个多功能的输入框，Google将其称为omnibox（中文为“多功能框”）。我们熟悉的一个功能就是用户可以直接在omnibox搜索关键字，Chrome也将omnibox开放给开发者，这使得omnibox更加强大。<br><br>要使用omnibox需要在Manifest的omnibox域指定keyword：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;omnibox&quot;: &#123; &quot;keyword&quot; : &quot;hamster&quot; &#125;</span><br></pre></td></tr></table></figure><br><br>Omnibox有四种事件：onInputStarted、onInputChanged、onInputEntered和onInputCancelled，分别用于监听用户开始输入、输入变化、执行指令和取消输入行为。其中执行指令是指用户敲击回车键或用鼠标点击建议结果。<br><br>onInputChanged接受一个回调方法做为参数，这个回调函数又有两个参数，第一个参数是字符串型，值为用户当前的输入值，第二个参数还是function型，用于返回建议结果，建议的结果为数组型数据，数组中的元素是建议结果对象。<br><br><br><img src="/assets/blogImg/omnix.png" width="400"><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">chrome.omnibox.onInputStarted.addListener(function () &#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">chrome.omnibox.onInputChanged.addListener(function (text, suggest) &#123;</span><br><span class="line">    console.log(text)</span><br><span class="line">    suggest([&#123;</span><br><span class="line">        &quot;content&quot;: &quot;js&quot;,</span><br><span class="line">        &quot;description&quot;: &apos;input 1 search js&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;content&quot;: &quot;css&quot;,</span><br><span class="line">        &quot;description&quot;: &apos;input 2 search css&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    ])</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">chrome.omnibox.onInputEntered.addListener(</span><br><span class="line">    function (text) &#123;</span><br><span class="line">        var newURL = &apos;https://www.google.com/search?q=&apos; + encodeURIComponent(text);</span><br><span class="line">        if (text == 1) &#123;</span><br><span class="line">            var newURL = &apos;https://www.google.com/search?q=js&apos;;</span><br><span class="line">        &#125; else if (text == 2) &#123;</span><br><span class="line">            var newURL = &apos;https://www.google.com/search?q=css&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">        chrome.tabs.create(&#123; url: newURL &#125;);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure><br><br>这里有一点要注意：要用严格模式。最开始我写的’content’（单引号）造成看不到预期的效果，并且也没有任何报错。调试好久才找到问题。<br><br><br><br>### 参考资料<br><br><div><br>    <a href="https://developer.chrome.com/extensions" target="_blank" rel="noopener">官方文档</a><br></div>
+
+<div><br>    <a href="http://www.ituring.com.cn/book/miniarticle/110853" target="_blank" rel="noopener">chrome扩展及应用开发</a><br></div>
+
+<div><br> <a href="https://crxdoc-zh.appspot.com/extensions/content_scripts" target="_blank" rel="noopener">https://crxdoc-zh.appspot.com/extensions/content_scripts</a><br></div>
+
+<div style="margin-bottom:30px;"> </div>
+
+
+
+
+
+
+
+
+</div></div>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/10/15/chromeExtend/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-webpack4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -144,13 +283,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/09/webpack4/">webpack4</a>
+      <a class="article-title" href="/2018/10/10/webpack4/">webpack4</a>
     </h1>
   
 
         
-        <a href="/2018/10/09/webpack4/" class="archive-article-date">
-  	<time datetime="2018-10-09T10:53:57.902Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-09</time>
+        <a href="/2018/10/10/webpack4/" class="archive-article-date">
+  	<time datetime="2018-10-10T06:37:03.058Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-10</time>
 </a>
         
       </header>
@@ -195,7 +334,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/09/webpack4/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/10/10/webpack4/">展开全文 >></a>
         </p>
       
 
