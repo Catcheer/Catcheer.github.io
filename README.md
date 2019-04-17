@@ -23,7 +23,7 @@ hexo s
 
 ```
 hexo d
-``
+```
 
 推送到部署分支(master)
 
