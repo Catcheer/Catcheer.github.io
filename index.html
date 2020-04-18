@@ -137,6 +137,157 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-demosLink" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/18/demosLink/">demosLink</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/18/demosLink/" class="archive-article-date">
+  	<time datetime="2020-04-18T04:17:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="d3-api-学习"><a href="#d3-api-学习" class="headerlink" title="d3 api 学习"></a>d3 api 学习</h4><p><a href="https://catcheer.github.io/d3-test/" target="_blank" rel="noopener">https://catcheer.github.io/d3-test/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/18/demosLink/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-webpack4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/15/webpack4/">webpack4</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/15/webpack4/" class="archive-article-date">
+  	<time datetime="2019-11-15T09:35:37.530Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="splitChunks"><a href="#splitChunks" class="headerlink" title="splitChunks"></a>splitChunks</h4><p>提取公共依赖，生成一个单独的模块<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">optimization: &#123;</span><br><span class="line">       splitChunks: &#123;</span><br><span class="line">         chunks: &apos;all&apos;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure></p>
+<h4 id="filename与chunkFilename-区别"><a href="#filename与chunkFilename-区别" class="headerlink" title="filename与chunkFilename 区别"></a>filename与chunkFilename 区别</h4><p>  filename 针对entry 内的文件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">entry:&#123;</span><br><span class="line">    index:&apos;./src/index.js&apos;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>  打包出来就是index.js</p>
+<p>  chunkFilename 是未被列在entry中，却又需要被打包出来的文件命名配置。比如按需加载，这样的文件是没有被列在entry中的，如使用CommonJS的方式异步加载模块：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">require.ensure([&quot;modules/tips.jsx&quot;], function(require) &#123;</span><br><span class="line">      var a = require(&quot;modules/tips.jsx&quot;);</span><br><span class="line">      // ...</span><br><span class="line">  &#125;, &apos;tips&apos;);</span><br></pre></td></tr></table></figure>
+<p>异步加载的模块是要以文件形式加载哦，所以这时生成的文件名是以chunkname配置的，生成出的文件名就是tips.min.js。<br>（require.ensure() API的第三个参数是给这个模块命名，否则 chunkFilename: “[name].min.js” 中的 [name] 是一个自动分配的、可读性很差的id，</p>
+<h4 id="Bundle-Analysis"><a href="#Bundle-Analysis" class="headerlink" title="Bundle Analysis"></a>Bundle Analysis</h4><p>  方法一：webpack –profile –json &gt; stats.json</p>
+<p>  方法二：webpack-bundle-analyzer</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack-bundle-analyzer</span><br><span class="line"></span><br><span class="line">const BundleAnalyzerPlugin = require(&apos;webpack-bundle-analyzer&apos;).BundleAnalyzerPlugin;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    new BundleAnalyzerPlugin()</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="htmlLoader"><a href="#htmlLoader" class="headerlink" title="htmlLoader"></a>htmlLoader</h4><p>  html 引用静态资源，webpack处理此静态资源用html-loader,<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&apos;xx.png&apos; /&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="webpackPrefetch-webpackPreload"><a href="#webpackPrefetch-webpackPreload" class="headerlink" title="webpackPrefetch webpackPreload"></a>webpackPrefetch webpackPreload</h4><p>  import(/<em> webpackPrefetch: true </em>/ “…”)用于预取<br>  <link rel="“prefetch”"> 这个“资源提示”告诉浏览器这是将来某些导航可能需要的资源。</p>
+<p>浏览器通常在处于空闲状态时获取此资源。获取资源后，在HTTP缓存中准备好以满足将来的请求。多个预取提示排队并在空闲时获取。当预取到浏览器时离开空闲状态可以取消任何正在进行的提取（并将部分响应放入缓存，继续使用Content-Range标头）并停止处理预取队列。<br>总结一下：空闲时取指</p>
+<p><link rel="“preload”">这个“资源提示”告诉浏览器这是这个导航肯定需要的资源，但稍后会被发现。Chrome在加载3秒后未使用资源时甚至会打印警告。</p>
+<p>浏览器通常以中等优先级（不是布局阻塞）获取此资源。</p>
+<p>总结一下：就像早先发现的一样，取正常。</p>
+<h4 id="output-path-output-publicPath-devServer-contentBase-devServer-publicPath"><a href="#output-path-output-publicPath-devServer-contentBase-devServer-publicPath" class="headerlink" title="output.path  output.publicPath devServer.contentBase devServer.publicPath"></a>output.path  output.publicPath devServer.contentBase devServer.publicPath</h4><p>output.path 打包生成静态资源放到硬盘上的路径/目录</p>
+<p>output.publicPath 决定引用静态资源的最终路径，最终路径=publicPath+loader路径。publicPath主要用于：例如把打包生成的包放到站点根目录下的demo目录。若不设置publicPath（默认值为’/‘）则xx.com/demo路径根本找不到html和其他资源。此case 设置publicPath为’demo’或者为绝对路径即可。</p>
+<p>devServer.contentBase 告诉服务器从哪个目录中提供内容。只有在你想要提供静态文件时才需要。devServer.publicPath 将用于确定应该从哪里提供 bundle，并且此选项优先。</p>
+<p>默认情况下，将使用当前工作目录作为提供内容的目录，但是你可以修改为其他目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: path.join(__dirname, &apos;public&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>devServer.publicPath 假设此值设置为’/public/‘,则相当于 将打包后的文件（其实文件是在内存中的）放到服务器的（’<a href="http://localhost:8080&#39;）public目录下。由此可以看出：devServer.publicPath与output.publicPath设置相同。" target="_blank" rel="noopener">http://localhost:8080&#39;）public目录下。由此可以看出：devServer.publicPath与output.publicPath设置相同。</a></p>
+<h4 id="HotModuleReplacementPlugin-HRM"><a href="#HotModuleReplacementPlugin-HRM" class="headerlink" title="HotModuleReplacementPlugin(HRM)"></a>HotModuleReplacementPlugin(HRM)</h4><p>在package.json配置  会自动配置webpack.HotModuleReplacementPlugin<br><figure class="highlight plain"><figcaption><span>"webpack-dev-server --hot"</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">或在devServer配置</span><br></pre></td></tr></table></figure></p>
+<p>hot:true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">需手动配置webpack.HotModuleReplacementPlugin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### mini-css-extract-plugin</span><br><span class="line">切记 此插件仅仅适用于生产模式，并且在loaders配置项里没有&apos;style-loader&apos;</span><br></pre></td></tr></table></figure>
+<p>This plugin should be used only on production builds without style-loader in the loaders chain<br><code>`</code></p>
+<h4 id="HtmlWebpackPlugin"><a href="#HtmlWebpackPlugin" class="headerlink" title="HtmlWebpackPlugin"></a>HtmlWebpackPlugin</h4><h4 id="CleanWebpackPlugin"><a href="#CleanWebpackPlugin" class="headerlink" title="CleanWebpackPlugin"></a>CleanWebpackPlugin</h4><h4 id="historyApiFallback"><a href="#historyApiFallback" class="headerlink" title="historyApiFallback"></a>historyApiFallback</h4><h5 id="ejsLoader"><a href="#ejsLoader" class="headerlink" title="ejsLoader"></a>ejsLoader</h5>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/15/webpack4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-re模块常用方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -184,94 +335,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/04/17/re模块常用方法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-webpack4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/17/webpack4/">webpack4</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/17/webpack4/" class="archive-article-date">
-  	<time datetime="2019-04-17T07:13:23.965Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="splitChunks"><a href="#splitChunks" class="headerlink" title="splitChunks"></a>splitChunks</h4><p>提取公共依赖，生成一个单独的模块<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">optimization: &#123;</span><br><span class="line">       splitChunks: &#123;</span><br><span class="line">         chunks: &apos;all&apos;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure></p>
-<h4 id="filename与chunkFilename-区别"><a href="#filename与chunkFilename-区别" class="headerlink" title="filename与chunkFilename 区别"></a>filename与chunkFilename 区别</h4><p>  filename 针对entry 内的文件</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">entry:&#123;</span><br><span class="line">    index:&apos;./src/index.js&apos;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p>  打包出来就是index.js</p>
-<p>  chunkFilename 是未被列在entry中，却又需要被打包出来的文件命名配置。比如按需加载，这样的文件是没有被列在entry中的，如使用CommonJS的方式异步加载模块：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">require.ensure([&quot;modules/tips.jsx&quot;], function(require) &#123;</span><br><span class="line">      var a = require(&quot;modules/tips.jsx&quot;);</span><br><span class="line">      // ...</span><br><span class="line">  &#125;, &apos;tips&apos;);</span><br></pre></td></tr></table></figure>
-<p>异步加载的模块是要以文件形式加载哦，所以这时生成的文件名是以chunkname配置的，生成出的文件名就是tips.min.js。<br>（require.ensure() API的第三个参数是给这个模块命名，否则 chunkFilename: “[name].min.js” 中的 [name] 是一个自动分配的、可读性很差的id，</p>
-<h4 id="Bundle-Analysis"><a href="#Bundle-Analysis" class="headerlink" title="Bundle Analysis"></a>Bundle Analysis</h4><p>  方法一：webpack –profile –json &gt; stats.json</p>
-<p>  方法二：webpack-bundle-analyzer</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack-bundle-analyzer</span><br><span class="line"></span><br><span class="line">const BundleAnalyzerPlugin = require(&apos;webpack-bundle-analyzer&apos;).BundleAnalyzerPlugin;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    new BundleAnalyzerPlugin()</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="htmlLoader"><a href="#htmlLoader" class="headerlink" title="htmlLoader"></a>htmlLoader</h4><p>  html 引用静态资源，webpack处理此静态资源用html-loader,<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&apos;xx.png&apos; /&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="webpackPrefetch-webpackPreload"><a href="#webpackPrefetch-webpackPreload" class="headerlink" title="webpackPrefetch webpackPreload"></a>webpackPrefetch webpackPreload</h4><p>  import(/<em> webpackPrefetch: true </em>/ “…”)用于预取<br>  <link rel="“prefetch”"> 这个“资源提示”告诉浏览器这是将来某些导航可能需要的资源。</p>
-<p>浏览器通常在处于空闲状态时获取此资源。获取资源后，在HTTP缓存中准备好以满足将来的请求。多个预取提示排队并在空闲时获取。当预取到浏览器时离开空闲状态可以取消任何正在进行的提取（并将部分响应放入缓存，继续使用Content-Range标头）并停止处理预取队列。<br>总结一下：空闲时取指</p>
-<p><link rel="“preload”">这个“资源提示”告诉浏览器这是这个导航肯定需要的资源，但稍后会被发现。Chrome在加载3秒后未使用资源时甚至会打印警告。</p>
-<p>浏览器通常以中等优先级（不是布局阻塞）获取此资源。</p>
-<p>总结一下：就像早先发现的一样，取正常。</p>
-<h4 id="output-path-output-publicPath-devServer-contentBase-devServer-publicPath"><a href="#output-path-output-publicPath-devServer-contentBase-devServer-publicPath" class="headerlink" title="output.path  output.publicPath devServer.contentBase devServer.publicPath"></a>output.path  output.publicPath devServer.contentBase devServer.publicPath</h4><p>output.path 打包生成静态资源放到硬盘上的路径/目录</p>
-<p>output.publicPath 决定引用静态资源的最终路径，最终路径=publicPath+loader路径。publicPath主要用于：例如把打包生成的包放到站点根目录下的demo目录。若不设置publicPath（默认值为’/‘）则xx.com/demo路径根本找不到html和其他资源。此case 设置publicPath为’demo’或者为绝对路径即可。</p>
-<p>devServer.contentBase 告诉服务器从哪个目录中提供内容。只有在你想要提供静态文件时才需要。devServer.publicPath 将用于确定应该从哪里提供 bundle，并且此选项优先。</p>
-<p>默认情况下，将使用当前工作目录作为提供内容的目录，但是你可以修改为其他目录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  module.exports = &#123;</span><br><span class="line">  //...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: path.join(__dirname, &apos;public&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>devServer.publicPath 假设此值设置为’/public/‘,则相当于 将打包后的文件（其实文件是在内存中的）放到服务器的（’<a href="http://localhost:8080&#39;）public目录下。由此可以看出：devServer.publicPath与output.publicPath设置相同。" target="_blank" rel="noopener">http://localhost:8080&#39;）public目录下。由此可以看出：devServer.publicPath与output.publicPath设置相同。</a></p>
-<h4 id="HotModuleReplacementPlugin-HRM"><a href="#HotModuleReplacementPlugin-HRM" class="headerlink" title="HotModuleReplacementPlugin(HRM)"></a>HotModuleReplacementPlugin(HRM)</h4><p>在package.json配置  会自动配置webpack.HotModuleReplacementPlugin<br><figure class="highlight plain"><figcaption><span>"webpack-dev-server --hot"</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">或在devServer配置</span><br></pre></td></tr></table></figure></p>
-<p>hot:true</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">需手动配置webpack.HotModuleReplacementPlugin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### mini-css-extract-plugin</span><br><span class="line">切记 此插件仅仅适用于生产模式，并且在loaders配置项里没有&apos;style-loader&apos;</span><br></pre></td></tr></table></figure>
-<p>This plugin should be used only on production builds without style-loader in the loaders chain<br><code>`</code></p>
-<h4 id="HtmlWebpackPlugin"><a href="#HtmlWebpackPlugin" class="headerlink" title="HtmlWebpackPlugin"></a>HtmlWebpackPlugin</h4><h4 id="CleanWebpackPlugin"><a href="#CleanWebpackPlugin" class="headerlink" title="CleanWebpackPlugin"></a>CleanWebpackPlugin</h4><h4 id="historyApiFallback"><a href="#historyApiFallback" class="headerlink" title="historyApiFallback"></a>historyApiFallback</h4><h5 id="ejsLoader"><a href="#ejsLoader" class="headerlink" title="ejsLoader"></a>ejsLoader</h5>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/17/webpack4/">展开全文 >></a>
         </p>
       
 
@@ -450,7 +513,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 catcheer
+    		&copy; 2020 catcheer
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
