@@ -7,7 +7,7 @@ title: webpack4
 #### splitChunks
 
 提取公共依赖，生成一个单独的模块
-  ```
+  ```javascript
     optimization: {
            splitChunks: {
              chunks: 'all'
@@ -19,7 +19,7 @@ title: webpack4
   #### filename与chunkFilename 区别
   filename 针对entry 内的文件
 
-  ``` 
+  ```javascript
     entry:{
         index:'./src/index.js',
     },
@@ -29,7 +29,7 @@ title: webpack4
 
   chunkFilename 是未被列在entry中，却又需要被打包出来的文件命名配置。比如按需加载，这样的文件是没有被列在entry中的，如使用CommonJS的方式异步加载模块：
 
-  ```
+  ```javascript
     require.ensure(["modules/tips.jsx"], function(require) {
           var a = require("modules/tips.jsx");
           // ...
@@ -47,7 +47,7 @@ title: webpack4
 
   方法二：webpack-bundle-analyzer
 
-  ```
+  ```javascript
     npm install --save-dev webpack-bundle-analyzer
 
     const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -64,7 +64,7 @@ title: webpack4
   #### htmlLoader 
 
   html 引用静态资源，webpack处理此静态资源用html-loader,
-  ```
+  ```html
   <img src='xx.png' />
   ```
 
@@ -99,7 +99,7 @@ devServer.contentBase 告诉服务器从哪个目录中提供内容。只有在�
 
 默认情况下，将使用当前工作目录作为提供内容的目录，但是你可以修改为其他目录：
 
-```
+```javascript
   module.exports = {
   //...
   devServer: {
@@ -116,12 +116,12 @@ devServer.publicPath 假设此值设置为'/public/',则相当于 将打包后�
 
 #### HotModuleReplacementPlugin(HRM)
 在package.json配置  会自动配置webpack.HotModuleReplacementPlugin
-``` "start": "webpack-dev-server --hot"
+```javascript
+ "start": "webpack-dev-server --hot"
 ```
 或在devServer配置 
-```
+```javascript
 hot:true
-
 ```
 需手动配置webpack.HotModuleReplacementPlugin
 

@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | catcheer blog</title>
+  <title>Object.assign | catcheer blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="study">
-<meta property="og:type" content="website">
-<meta property="og:title" content="catcheer blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。  注意限定条件  可枚举属性 本来是在MDN上浏览Object.create 其中有几个例子用到了js继承 12345678910111213141516171819202122232425262728function SuperClass()&amp;#123;&amp;#125;function">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Object.assign">
+<meta property="og:url" content="http://yoursite.com/2020/04/23/Object-assign/index.html">
 <meta property="og:site_name" content="catcheer blog">
-<meta property="og:description" content="study">
+<meta property="og:description" content="Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。  注意限定条件  可枚举属性 本来是在MDN上浏览Object.create 其中有几个例子用到了js继承 12345678910111213141516171819202122232425262728function SuperClass()&amp;#123;&amp;#125;function">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-04-23T07:29:36.690Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="catcheer blog">
-<meta name="twitter:description" content="study">
+<meta name="twitter:title" content="Object.assign">
+<meta name="twitter:description" content="Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。  注意限定条件  可枚举属性 本来是在MDN上浏览Object.create 其中有几个例子用到了js继承 12345678910111213141516171819202122232425262728function SuperClass()&amp;#123;&amp;#125;function">
   
     <link rel="alternative" href="/atom.xml" title="catcheer blog" type="application/atom+xml">
   
@@ -135,177 +136,149 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Object-assign" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Object.assign
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/23/Object-assign/" class="archive-article-date">
+
+        
+        <a href="/2020/04/23/Object-assign/" class="archive-article-date">
   	<time datetime="2020-04-23T06:25:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-23</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/23/Object-assign/">Object.assign</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。</p>
+</blockquote>
+<p>注意限定条件  <b style="color:#DB4D46">可枚举属性</b></p>
+<p>本来是在MDN上浏览Object.create 其中有几个例子用到了js继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperClass</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">OtherSuperClass</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyClass</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  SuperClass.call(<span class="keyword">this</span>);</span><br><span class="line">  OtherSuperClass.call(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyClass</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  SuperClass.call(<span class="keyword">this</span>);</span><br><span class="line">  OtherSuperClass.call(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 继承一个类</span></span><br><span class="line">MyClass.prototype = <span class="built_in">Object</span>.create(SuperClass.prototype);</span><br><span class="line"><span class="comment">// 混合其它</span></span><br><span class="line"><span class="built_in">Object</span>.assign(MyClass.prototype, OtherSuperClass.prototype);</span><br><span class="line"><span class="comment">// 重新指定constructor</span></span><br><span class="line">MyClass.prototype.constructor = MyClass;</span><br><span class="line"></span><br><span class="line">MyClass.prototype.myMethod = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// do a thing</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> me= <span class="keyword">new</span> MyClass()</span><br><span class="line"><span class="built_in">console</span>.log(me <span class="keyword">instanceof</span> MyClass) <span class="comment">// 1 true</span></span><br><span class="line"><span class="built_in">console</span>.log(me <span class="keyword">instanceof</span> SuperClass) <span class="comment">//2 true</span></span><br><span class="line"><span class="built_in">console</span>.log(me <span class="keyword">instanceof</span> OtherSuperClass) <span class="comment">//3 false</span></span><br></pre></td></tr></table></figure>
+<p>因为me实例的原型对象(包括原型链上的)分别可以找到constructor:MyClass,constructor:SuperClass所以1,2为true.怀着好奇心 怎样修改代码可以实现3为true呐,然后看到了这句<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 重新指定constructor</span></span><br><span class="line">MyClass.prototype.constructor = MyClass;</span><br></pre></td></tr></table></figure></p>
+<p>constructor重新指向了MyClass  大胆猜想如果把这行删除,而Object.assign(MyClass.prototype, OtherSuperClass.prototype);MyClass.prototype与OtherSuperClass.prototype进行了混合,混合后的MyClass.prototype.constructor不应该是OtherSuperClass嘛 ,于是索性把代码改成了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperClass</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">OtherSuperClass</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyClass</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  SuperClass.call(<span class="keyword">this</span>);</span><br><span class="line">  OtherSuperClass.call(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyClass</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  SuperClass.call(<span class="keyword">this</span>);</span><br><span class="line">  OtherSuperClass.call(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 继承一个类</span></span><br><span class="line">MyClass.prototype = <span class="built_in">Object</span>.create(SuperClass.prototype);</span><br><span class="line"><span class="comment">// 混合其它</span></span><br><span class="line"><span class="built_in">Object</span>.assign(MyClass.prototype, OtherSuperClass.prototype);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MyClass.prototype.myMethod = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// do a thing</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> me= <span class="keyword">new</span> MyClass()</span><br><span class="line"><span class="built_in">console</span>.log(me <span class="keyword">instanceof</span> OtherSuperClass)</span><br></pre></td></tr></table></figure>
+<p>结果 赤裸裸的打印出了false.<br>又怀疑Object.assign不是源对象属性重写目标对象属性?? 赶紧打印<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.assign(&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;,&#123;<span class="attr">a</span>:<span class="number">2</span>&#125;)) <span class="comment">// &#123;a:2&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看到是源对象属性覆盖目标对象相同的属性,可是用在protoype怎么就不生效呐.想了一下 是不是跟对象的所有自身属性的描述有关,于是打印</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptors(OtherSuperClass.prototype))</span><br></pre></td></tr></table></figure>
+<p>可以看到constructor属性的enumerable: false 至此基本确信使用Object.assign时enumerable: false的属性不会被复制到目标对象.<br>为了验证,又打印了一下代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.assign(&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;,<span class="built_in">Object</span>.defineProperty(&#123;&#125;,<span class="string">'a'</span>,&#123;<span class="attr">enumerable</span>: <span class="literal">false</span>,<span class="attr">value</span>:<span class="number">2</span>&#125;)))</span><br></pre></td></tr></table></figure>
+<p>结果是{a:1},证实了自己的猜想.然后MDN上搜索Object.assign 看到了开篇的那句 Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/23/Object-assign/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/18/demosLink/" class="archive-article-date">
-  	<time datetime="2020-04-18T04:17:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-18</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/18/demosLink/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">demosLink</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/18/demosLink/">demosLink</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/15/webpack4/" class="archive-article-date">
-  	<time datetime="2019-11-15T09:35:37.530Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/15/webpack4/">webpack4</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/17/re模块常用方法/" class="archive-article-date">
-  	<time datetime="2019-04-17T07:14:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/17/re模块常用方法/">python3re模块常用方法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/15/chromeExtend/" class="archive-article-date">
-  	<time datetime="2018-10-15T06:12:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/15/chromeExtend/">chromeExtend</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -328,8 +301,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
