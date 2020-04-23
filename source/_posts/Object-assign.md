@@ -44,7 +44,7 @@ console.log(me instanceof MyClass) // 1 true
 console.log(me instanceof SuperClass) //2 true
 console.log(me instanceof OtherSuperClass) //3 false
 ```
-
+<!--more-->
 因为me实例的原型对象(包括原型链上的)分别可以找到constructor:MyClass,constructor:SuperClass所以1,2为true.怀着好奇心 怎样修改代码可以实现3为true呐,然后看到了这句
 ```javascript
 // 重新指定constructor

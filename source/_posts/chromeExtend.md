@@ -18,7 +18,7 @@ tags:
 + 开发更简单；总体上看没什么新的技术，开发语言就是javascript，Firefox的插件开发则复杂许多，涉及到环境的搭建和一些WEB以外的技术；IE的插件开发就更复杂了，需要熟悉C++和COM技术，当然还要装微软的Visual Studio。
 + 应用场景更广泛，Firefox插件只能运行在Firefox上，而Chrome除 了Chrome浏览器之外，还可以运行在所有webkit内核的国产浏览器，等；
 除此之外，Firefox浏览器也对Chrome插件的运行提供了一定的支持；
-
+<!--more-->
 
 
 ### Manifest文件格式
