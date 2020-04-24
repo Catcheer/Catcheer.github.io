@@ -20,3 +20,8 @@ https://catcheer.github.io/dragDiv/dragDiv.html
 #### 利用h5 drop readAsDataURL实现拖拽到页面图片预览
 
 https://catcheer.github.io/dragDiv/file.html
+
+
+#### debounce
+
+https://catcheer.github.io/dragDiv/debounce.html
