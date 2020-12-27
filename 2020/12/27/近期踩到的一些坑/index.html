@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="theme-color" content="#33474d">
+	<title>近期踩到的一些坑 | catcheer blog</title>
+	<link rel="stylesheet" href="/css/style.css" />
+	
+      <link rel="alternate" href="/atom.xml" title="catcheer blog" type="application/atom+xml">
+    
+</head>
+
+<body>
+
+	<header class="header">
+		<nav class="header__nav">
+			
+				<a href="https://github.com/Catcheer" class="header__link">Github</a>
+			
+		</nav>
+		<h1 class="header__title"><a href="/">catcheer blog</a></h1>
+		<h2 class="header__subtitle"></h2>
+	</header>
+
+	<main>
+		<article>
+	
+		<h1>近期踩到的一些坑</h1>
+	
+	<div class="article__infos">
+		<span class="article__date">2020-12-27</span><br />
+		
+		
+	</div>
+
+	
+
+	
+		<h3 id="一-小程序http-thirdwx-qlogo-cn合法域名"><a href="#一-小程序http-thirdwx-qlogo-cn合法域名" class="headerlink" title="一.小程序http://thirdwx.qlogo.cn合法域名"></a>一.小程序<a href="http://thirdwx.qlogo.cn合法域名" target="_blank" rel="noopener">http://thirdwx.qlogo.cn合法域名</a></h3><h5 id="场景"><a href="#场景" class="headerlink" title="场景:"></a>场景:</h5><p>笔者开发一个绘制海报图片,用户分享该海报图片分享商品功能.ios机型绘制正常,安卓绘制失败的情况</p>
+<h5 id="开发者工具定位问题"><a href="#开发者工具定位问题" class="headerlink" title="开发者工具定位问题:"></a>开发者工具定位问题:</h5><p>报 <a href="http://thirdwx.qlogo.cn" target="_blank" rel="noopener">http://thirdwx.qlogo.cn</a> 不在以下 downloadFile 合法域名列表中,原来是我绘制的海报图片中用到了微信用户头像,头像域名是<a href="http://thirdwx.qlogo.cn" target="_blank" rel="noopener">http://thirdwx.qlogo.cn</a></p>
+<h5 id="解决"><a href="#解决" class="headerlink" title="解决:"></a>解决:</h5><p>配置 <a href="https://thirdwx.qlogo.cn" target="_blank" rel="noopener">https://thirdwx.qlogo.cn</a> 域名 第二步:头像链接url替换:(为什么需要此步骤,原因在下面,引用至网络)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.prototype.replaceQLogo = <span class="function"><span class="keyword">function</span>(<span class="params">url = <span class="string">'http://thirdwx.qlogo.cn'</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">this</span>.replace(url, <span class="string">'https://wx.qlogo.cn'</span>)</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>canvas 里面的图片必须是本地图片不能使用网络图片，因此我们需要用到微信的一个API wx.downloadFile 将网络图片转化成本地图片，以供canvas画图时候使用，其中也明确提出需要将要下载图片的路径地址中 https 格式的域名在小程序后台进行安全域名配置。本以为万事具备，但是万万没想到正式发版以后好多用户都无法生成自己的分享图，真的是让自己严重怀疑是否写错了，可是我怎么测试都没有问题，最后几经周折发现是因为有一部分从第三方引入的用户头像是 <a href="https://thirdwx.qlogo.cn" target="_blank" rel="noopener">https://thirdwx.qlogo.cn</a> 开头的路径，时间长不使用这个功能了这就当是自己业务能力不足造成的，这个锅我背了，赶紧配置安全域名进行解决。本以为这回总没事了吧，谁成想，千算万算怎么也没算到，微信玩了一手更狠的，还有一大部分用户头像是以 <a href="http://thirdwx.qlogo.cn" target="_blank" rel="noopener">http://thirdwx.qlogo.cn</a> 开头的路径，报错信息如下，微信自己发布提供的http格式路径让存着，然后又在这里自己卡着不放报着错，真乃神操作。</p>
+</blockquote>
+<h3 id="二-passive-false"><a href="#二-passive-false" class="headerlink" title="二.passive: false"></a>二.passive: false</h3><h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>chrome 监听touch类事件报错：无法被动侦听事件preventDefault。阻止默认事件失效</p>
+<p>说一下这个 preventDefault()是个什么鬼，这个是取消默认事件的，如果这个函数起作用的，比如默认的表单提交，a链接的点击跳转，就不好用了。</p>
+<h5 id="两个解决方案："><a href="#两个解决方案：" class="headerlink" title="两个解决方案："></a>两个解决方案：</h5><ul>
+<li>注册处理函数时，用如下方式，明确声明为不是被动的</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    <span class="built_in">window</span>.addEventListener(‘touchmove’, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">     e.preventDefault();</span><br><span class="line">&#125;, &#123; <span class="attr">passive</span>: <span class="literal">false</span> &#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>应用 CSS 属性 touch-action: none; 这样任何触摸事件都不会产生默认行为，但是 touch 事件照样触发。 touch-action 还有很多选项</li>
+</ul>
+<h3 id="三-swiper禁止手动滚动"><a href="#三-swiper禁止手动滚动" class="headerlink" title="三.swiper禁止手动滚动"></a>三.swiper禁止手动滚动</h3><p>翻看文档发现只有控制自动滚动的api,没有禁用手动滚动的api.第一想法是阻止事件监听,touchStart ,touchMove等事件试了一遍,发现代码复杂切效果不理想.于是想到了从css下手去解决.</p>
+<p>于是用到了 css :pointer-events</p>
+<blockquote>
+<p>pointer-events CSS 属性指定在什么情况下 (如果有) 某个特定的图形元素可以成为鼠标事件的 target。</p>
+</blockquote>
+<blockquote>
+<p>其中 pointer-events:none 元素永远不会成为鼠标事件的target。<br> 应用场景,如果页面内(或某区块)内用多个表单需同时禁用时.则可以在改表单共同父元素上使用pointer-events:none,这样所有表单无法聚焦.因此达到了禁用的目的.<br> 需要注意的是,当其后代元素的pointer-events属性指定其他值时，鼠标事件可以指向后代元素，在这种情况下，鼠标事件将在捕获或冒泡阶触发父元素的事件侦听器。</p>
+</blockquote>
+<h3 id="小程序scroll-view-与positive-fixed-不兼容问题"><a href="#小程序scroll-view-与positive-fixed-不兼容问题" class="headerlink" title="小程序scroll-view 与positive:fixed 不兼容问题"></a>小程序scroll-view 与positive:fixed 不兼容问题</h3><p><figure class="figure"><img src="https://raw.githubusercontent.com/Catcheer/d3-test/gh-pages/img/123.png" alt="image"><figcaption class="figure__caption">image</figcaption></figure></p>
+<h5 id="场景-如图"><a href="#场景-如图" class="headerlink" title="场景(如图)"></a>场景(如图)</h5><ul>
+<li>左边一个固定高度的scroll-view  ,右边一个scroll-view用于放product list ,ProductList是一个自定义组件,在ProductList内d弹出层用了fixed定位.可以发现弹出层仅仅显示右部分,左部分被遮盖掉.相信大多数同学都会想到调整z-index,实际上z-index是无效的.<br><span style="color:red">在微信小程序社区搜索后发现这是一个官方的bug.</span></li>
+</ul>
+<ol start="2">
+<li>想到的解决这个问题的两个方案</li>
+</ol>
+<blockquote>
+<ul>
+<li>1.可以scroll-view换为view(规避问题).</li>
+<li>2.弹出层部分从ProductList组件内拿出来 放到与scroll-view同一级别. </li>
+</ul>
+</blockquote>
+<p>我采用的是第二种方案</p>
+
+	
+
+	
+		<span class="different-posts"><a href="/2020/12/27/近期踩到的一些坑/" onclick="window.history.go(-1); return false;">⬅️ Go back </a></span>
+
+	
+
+</article>
+
+	</main>
+
+	<footer class="footer">
+	<div class="footer-content">
+		
+	       <!-- <div class="footer__element">
+	<p>学习 & 思考 
+		<br />welcome to my Blog glad you found it. Have a look around, will you?
+		</p> 
+</div>
+-->
+	    
+	      
+<div class="footer__element">
+	<!-- <h5>Check out</h5>
+	<ul class="footer-links">
+		<li class="footer-links__link"><a href="/archives">Archive</a></li>
+		
+		  <li class="footer-links__link"><a href="/atom.xml">RSS</a></li>
+	    
+		<li class="footer-links__link"><a href="/about">about page</a></li>
+		<li class="footer-links__link"><a href="/tags">Tags</a></li>
+		<li class="footer-links__link"><a href="/categories">Categories</a></li>
+	</ul> -->
+</div>
+
+	    
+
+		<div class="footer-credit">
+			<span>© 2020 catcheer | Powered by <a href="https://hexo.io/">Hexo</a> | Theme <a href="https://github.com/HoverBaum/meilidu-hexo">MeiliDu</a></span>
+		</div>
+
+	</div>
+
+
+</footer>
+
+
+
+</body>
+
+</html>
